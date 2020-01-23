@@ -37,10 +37,14 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private IEnumerable<WeatherForecast> forecasts;
+
+    [Parameter]
+    public int Take { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        forecasts = forecasts.Take(Take);
     }
 }
