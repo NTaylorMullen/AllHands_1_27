@@ -1,0 +1,18 @@
+﻿@page "/"
+@using AllHands_1_27.Data
+@inject WeatherForecastService ForecastService
+
+<p>There are <strong>@_forecasts.Count()</strong> forecasts available. Showing <strong>@_visibleForecastCount</strong>.</p>
+
+<FetchData Take="_visibleForecastCount"></FetchData>
+
+@code {
+    private readonly int _visibleForecastCount = 3;
+
+    private WeatherForecast[] _forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}
